@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defeating the Crying Ransomware</title>
+    <link rel="stylesheet" href="app/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="app/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="app/dist/app.css">
+    <link rel="stylesheet" href="assets/font/font-awesome.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Favicon and Touch Icons  -->
+    <link rel="shortcut icon" href="assets/images/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/images/favicon.png">
+</head>
+<body class="header-fixed details inner-page">
+        <!-- preloade -->
+        <div class="preload preload-container">
+            <div class="preload-logo"></div>
+        </div>
+        <!-- /preload -->
+    <div id="wrapper">
+        <!-- Header -->
+        <header id="header_main" class="header">
+            <div class="container">
+                <div id="site-header-inner">
+                    <div class="header__logo">
+                        <a href="#"><img src="assets/images/logo/preload.png" alt=""></a>
+                    </div>
+                    <nav id="main-nav" class="main-nav">
+                        <ul id="menu-primary-menu" class="menu">
+                            <li class="menu-item"><a href="index.html">Home</a></li>
+                            <li class="menu-item"><a href="index.html">About</a></li>
+                            <li class="menu-item"><a href="index.html">Achievements</a></li>
+                            <li class="menu-item"><a href="index.html">Skills</a></li>
+                            <li class="menu-item"><a href="index.html">Projects</a></li>
+                            <li class="menu-item"><a href="index.html">Blogs</a></li>
+                            <!-- Create sub menu for Portfolio: Achievements, Skills, Projects-->
+                        </ul>
+                    </nav><!-- /#main-nav -->
+                    <div class="mobile-button"><span></span></div><!-- /.mobile-button -->
+                </div>
+            </div>
+        </header>
+    <!-- end Header -->
+    <br><br>
+    
+    <style>
+        .justified-paragraph {
+        text-align: justify;
+      }
+    </style>      
+    <section class="tf-section detail">
+        <div class="container">
+            <div class="row">
+                <article class="article" data-aos="fade-in" data-aos-duration="800">
+                    <div class="post p-b23">
+                        <div class="image">
+                            <div class="tag st2">Reverse Engineering</div>
+                        </div>
+                        <h4 class="title"><a href="#">Defeating the “Crying” Ransomware : Misc & Reversing CTF Writeup</a></h4>
+                        <ul class="meta-post">
+                            <li><span>by</span><a href="#">Flxnzz</a></li>
+                            <li><a href="#"> 25 Jun 2023</a></li>
+                        </ul>                     
+                    </div>
+                    <div class="post-details">
+                        <div class="image">
+                            <img src="assets/images/post/medium-thumb.png" alt="">
+                        </div> <br>
+                        <p class="justified-paragraph">Pada kesempatan ini, Author ingin membagikan Writeup tentang salah satu challenge pada kompetisi CTF Wreck IT 4.0 yang
+                            diselenggarakan oleh Politeknik Siber dan Sandi Negara. Soal yang diselesaikan berkategori Miscellaneous dan perlu
+                            sedikit pemahaman tentang Reverse Engineering.</p>
+                        <h6>Challenge Description & Attachment</h6>
+                        <p class = "justified-paragraph">Berikut adalah deskripsi dari challenge yang akan dibahas. Silakan download melalui
+                            <strong><a href="https://drive.proton.me/urls/DCQT1YSHR8#RdmXveyxkMKi"> <u>link berikut</u></a></strong>.</p>
+                        
+                        <h6>Lakukan Koneksi ke Host Server</h6>
+                        <p class="justified-paragraph">Setelah membaca deskripsi soal, Author memulai tantangan ini dengan melakukan
+                            remote secure shell connection dengan perintah berikut.</p>
+                            <div class="image">
+                                <img src="assets/images/post/carbon.png" alt="">
+                            </div>    <br>
+                        <p class = "justified-paragraph">Namun, perintah tersebut tentunya akan memunculkan pesan permission denied.
+                            Dalam melakukan secure connection, server perlu memvalidasi user sebelum memberikan akses ke dalam server.
+                            Dengan memasukkan username dan password, server dapat memastikan bahwa user yg ingin masuk ke dalam server
+                            adalah orang yang diizinkan dalam mengakses server tersebut.</p>
+                            <br><code>ssh &lt;username&gt;@&lt;server-address&gt; -p &lt;port-number&gt;</code>
+                        <p class = "justified-paragraph"><br>Untuk itu, kita perlu memenuhi ketentuan di atas. Bagaimana cara tahu username, atau bahkan passwordnya?</p>
+                        <p class = "justified-paragraph">Pada attachment soal diberikan string aneh yang sebenarnya merupakan interpretasi dari bahasa pemrograman Brainfuck.
+                            Author hanya perlu mendecode string tersebut dan hasilnya adalah malbi:77U37dg261yyyo1</p>
+                        <p class = "justified-paragraph">Author berasumsi bahwa hasil decode string Brainfuck tersebut merupakan kredensial yang diperlukan saat melakukan koneksi SSH.
+                            Lakukan koneksi dengan <strong>malbi dan password: 77U37dg261yyyo1</strong> </p>
+                            <br><code>ssh malbi@167.71.207.218 -p 35022</code>
+                            
+                    </div>
+                    <div class="content-details">
+                        <h6>Menemukan File Binary Ransomware</h6>
+                        <p>Dengan memasukkan kredensial tersebut maka akan berhasil melakukan koneksi ke server. Biasanya flag disimpan dalam directory root. Namun setelah menelusuri tiap folder,
+                            Author mendapat flag pada path <strong>/opt</strong>.</p>
+                            <div class="image">
+                                <img src="assets/images/post/carbon2.png" alt="">
+                            </div><br>
+                        <p class = "justified-paragraph">Sayangnya, permission untuk flag.txt hanya dapat diread saja. Kita perlu jalan lain untuk membukanya. Pada deskripsi soal dituliskan
+                                Binary ransomwarenya bernama <i>“crying”</i>. Author mencari file tersebut dengan :</p>
+                        <code>find / -name "crying"</code>
+                        <p class = "justified-paragraph"><br>Memang ada beberapa directory yang perlu hak akses root, tapi ternyata Author menemukan file itu di <strong>/usr/bin/crying</strong>.
+                            Saat dijalankan, program tersebut hanya menampilkan string <i>“Sob”</i> saja.</p>
+                        <h6>Mengunduh File Binary ke Local Machine</h6>
+                        <p class="justified-paragraph">Author punya ide untuk menjalankannya melalui local machine agar setidaknya bisa dijalankan menggunakan
+                            decompiler atau debugger. Ada beberapa cara untuk mendownload file crying dari host ke local machine. Lagi-lagi, karena file
+                             ownernya adalah root, kita tidak akan bisa berbuat banyak. Kita perlu menemukan directory dimana user biasa bisa melakukan
+                             read, write, dan execute.</p>
+                             <div class="image">
+                                <img src="assets/images/post/carbon3.png" alt="">
+                            </div><br>
+                        <p class="justified-paragraph">Copy file binary tadi dari <i>/usr/bin/crying</i> ke <i>/tmp</i>. Setelah di copy maka file ownernya akan berubah menjadi user saat ini.
+                            Sekarang, tujuannya adalah mendownload file ini ke local machine. Bisa make beberapa cara, seperti secure copy, python http server, ataupun sftp.
+                            Disini author menjalankan perintah SFTP dari terminal lokal untuk mendownload file dari server.</p>
+                            <div class="image">
+                                <img src="assets/images/post/carbon4.png" alt="">
+                            </div><br>
+                        
+                        <h6>Melakukan Reverse Engineering</h6>
+                        <p class="justified-paragraph">Lalu, apa yang harus dilakukan? setelah dapat filenya, kita akan lihat dekompilasi programnya.
+                            Bagi yang masih pemula dalam Reverse Engineering, dekompilasi yaitu proses untuk mengubah kode program yg sudah dikompilasi
+                            kembali menjadi source code asalnya. Biasanya file binary terdiri atas beberapa segmen, diantaranya :</p>
+                        <ul class="list">
+                            <li class = "justified-paragraph"><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.76 5.108V2.292L2.652 0.4H5.864L7.712 2.336V5.064L5.864 7H2.652L0.76 5.108Z" fill="white"/>
+                                </svg>
+                                <span><b>.bss (Block Started by Symbol):</b> Segmen ini berisi variabel yang diinisialisasi dengan nilai 0,
+                                    atau belum diinisialisasi dengan suatu nilai.</span>
+                            </li>
+                            <li class = "justified-paragraph"><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.76 5.108V2.292L2.652 0.4H5.864L7.712 2.336V5.064L5.864 7H2.652L0.76 5.108Z" fill="white"/>
+                                </svg>
+                                <span><b>.got (Global Offset Table): </b> Segmen ini berisi alamat untuk fungsi dan variabel global yang digunakan dalam program.</span>
+                            </li>
+                            <li class = "justified-paragraph"><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.76 5.108V2.292L2.652 0.4H5.864L7.712 2.336V5.064L5.864 7H2.652L0.76 5.108Z" fill="white"/>
+                                </svg>
+                                <span><b>.rodata (Read-Only Data): </b> Berisi data yang bersifat statis dan hanya dapat dibaca.
+                                    Data pada segmen ini tidak dapat diubah selama runtime.</span>
+                            </li>
+                            <li class = "justified-paragraph"><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.76 5.108V2.292L2.652 0.4H5.864L7.712 2.336V5.064L5.864 7H2.652L0.76 5.108Z" fill="white"/>
+                                </svg>
+                                <span><b>.data (Initialized Data): </b> Berisi variabel yang diinisialisasi dengan nilai tertentu.
+                                    Variabel pada segmen ini dapat diubah selama runtime.</span>
+                            </li>
+                            <li class = "justified-paragraph"><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.76 5.108V2.292L2.652 0.4H5.864L7.712 2.336V5.064L5.864 7H2.652L0.76 5.108Z" fill="white"/>
+                                </svg>
+                                <span><b>.text (Code): </b> berisi kode bahasa pemrograman yang terdiri atas logika utama dan alur kontrol dari program.</span>
+                            </li>
+                        </ul>
+                        <p class="justified-paragraph">Author menggunakan Ghidra dan Radare2 untuk melakukan dekompilasi dan membaca alur program.
+                            Berdasarkan penjelasan di atas, kita bisa mulai bermain pada segmen .text karena merupakan bagian utama dari suatu program.</p>
+                            <div class="image">
+                                <img src="assets/images/post/post6.png" alt="">
+                            </div>
+
+                    </div>
+                    <div class="content-details">
+                        <h6>Membaca Alur Kode dan Block Program</h6>
+                        <p class="justified-paragraph">Kita mulai dengan menganalisis address memori 0x402540 karena address ini adalah entry point, atau main programnya.
+                            Intinya, fungsi pada address ini akan memanggil fungsi di address lain, yaitu 0x403df0.</p>
+                        <div class="image">
+                            <img src="assets/images/post/post5.png" alt="">
+                        </div><br>
+                        <p class="justified-paragraph">Lakukan dekompilasi fungsi pada rentang address 0x403000 sampai 0x403fff. Dari sini kita mendapat kata kunci yang penting untuk dicatat. 
+                            Pada address 0x403e6d terdapat str._MEIPASS yang merupakan variabel yang digunakan oleh PyInstaller untuk mengakses file-file yang telah disertakan
+                            dalam sebuah program yang dibungkus ke dalam sebuah executable. Lihat gambar berikut.</p>
+                            <div class="image">
+                                <img src="assets/images/post/post4.png" alt="">
+                            </div><br>
+
+                        <p class = "justified-paragraph">Berdasarkan gambar di atas juga terdapat PYI_ONEDIR_MODE yang digunakan PyInstaller untuk membuat direktori tunggal yang berisi
+                            semua file yang diperlukan oleh program. <br><br> Kemudian setelah lama mengeksplorasi alur program, terdapat fungsi pada address 0x00405fb0 yang memanggil 0x00407280. 
+                            Jika ditampilkan dengan Function Graph pada Ghidra, maka berikut adalah tampilannya.</p>
+                            <div class="image">
+                                <img src="assets/images/post/post2.png" alt="">
+                            </div><br>
+                            <div class="image">
+                                <img src="assets/images/post/post3.png" alt="">
+                            </div><br>
+                        <p class = "justified-paragraph">Pada 2 gambar di atas, terdapat kata kunci lagi yaitu PYINSTALLER_STRICT_UNPACK_MODE yang bertujuan untuk membundle program ke dalam sebuah executable.</p>
+                    </div>
+                    <div class="content-details">
+                        <h6>Decompiling File Binary Ransomware</h6>
+                        <p class="justified-paragraph">Oke, berdasarkan banyak keyword yang sudah kita dapat diatas, bisa disimpulkan bahwa semua nya akan mengerucut ke PyInstaller.
+                            Author punya ide untuk mengekstrak konten yang ada di file crying kembali ke bentuk semula (sebelum dibundle dengan PyInstaller). Untungnya ada repository github yang bisa melakukan hal ini (thanks to extremecoders).
+                        <br><br>Setelah diextract menggunakan tools github tersebut, akan muncul konten file dari binary crying tadi. Dari sekian banyak file yg muncul, ada file yang namanya sama dengan file binary sebelum diextract, yaitu crying.pyc.</p>
+                        <div class="image">
+                            <img src="assets/images/post/post7.png" alt="">
+                        </div><br>
+                        <div class="image">
+                            <img src="assets/images/post/carbon5.png" alt="">
+                        </div><br>
+
+                        <p class="justified-paragraph">Dapat dilihat bahwa file ini di compile dengan python versi 3.8. File ekstensi .pyc tidak bisa dibaca langsung oleh IDE atau editor apapun karena berisi bytecode yang dihasilkan oleh interpreter Python.
+                            Oleh karena itu kita perlu Python decompiler untuk mengembalikan kode tersebut ke bentuk aslinya. Untuk itu kita bisa menggunakan uncompyle6.</p>
+                            <div class="image">
+                                <img src="assets/images/post/carbon6.png" alt="">
+                            </div><br>
+
+                        <p class="justified-paragraph">Wow, akhirnya kita menemukan Big Clue dari challenge ini. Berdasarkan logika pada kode tersebut, flag akan muncul jika domain Pada
+                             gambar di atas bisa diakses oleh mesin host. Mari kita buat koneksi ulang seperti semula.</p>
+                            <code>ssh malbi@167.71.207.218 -p 35022</code>
+                        </div>
+                    <div class="content-details mb-41">
+                        <h6>Menemukan Flag pada Host Machine</h6>
+                        <p class="justified-paragraph">Agar domain bisa diakses oleh mesin, pindah ke directory /etc. Disana kita perlu mengedit nilai dari file bernama hosts.
+                            File /etc/hosts berguna untuk menentukan alamat IP dari sebuah host ketika kita ingin terhubung ke host tersebut. 
+                            Isi dari file /etc/hosts biasanya terdiri dari dua kolom yang dipisahkan oleh spasi atau tab. Kolom pertama berisi alamat IP dari host, sedangkan kolom kedua berisi nama host
+                        <br><br>Langkah terakhir.. kita hanya perlu menambahkan IP Address dari web apapun yang bisa diakses secara publik ke hosts.
+                        Untungnya hosts bersifat writable dan bukan dimiliki root sehingga kita bisa menulis sesuatu disitu.</p>
+                        <code>
+                            echo "XX.XX.XX.XX yieywvciwyefiowuteyrt63257486gdfewytifuywewhfg.co.ph" > hosts
+                        </code>
+                        <p class="justified-paragraph"><br>
+                            Dalam hal ini, isi dari file /etc/hosts akan berisi mapping antara alamat IP "XX.XX.XX.XX" dengan nama domain seperti yang ada di hasil dekompilasi. 
+                            Mapping ini digunakan untuk menentukan alamat IP dari sebuah host ketika sebuah aplikasi ingin terhubung ke host tersebut, sehingga jika kita menjalankan file crying pada host machine kita akan mendapat flag.</p>
+                            <div class="image">
+                                <img src="assets/images/post/flag.png" alt="">
+                            </div><br>
+                            <h6>Flag : WRECKIT40{R34l_c453_0f_w4NN4cRY}</h7><br><br>
+                    </div>
+                    <div class="wrap-widget">
+                        <div class="widget widget-tag style-2">
+                            <h6 class="title-widget">Tags:</h6>
+                            <ul>
+                                <li><a href="#">Reverse Engineering</a>, </li>
+                                <li><a href="#">Binary Exploitation</a></li>
+                            </ul>
+                        </div>
+                        <div class="widget widget-social style-2">
+                            <h6 class="title-widget">Share:</h6>
+                            <ul>
+                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrap-box-details">
+                        <div class="previous">
+                            <a class="st" href="coming-soon.html">Previous</a>
+                            <h6><a href="coming-soon.html">Analyzing Suspicious Activity on Home Network Traffic</a></h6>
+                        </div>
+                        <div class="next">
+                            <a class="st" href="reversing-sicepat.html">Next</a>
+                            <h6><a href="reversing-sicepat.html">Reverse Engineering Aplikasi Kurir SiCepat Palsu</a></h6>
+                        </div>
+                    </div>
+                </article>         
+            </div>
+        </div>
+    </section>
+
+    </div>
+    <a id="scroll-top"></a>
+    <script src="app/js/jquery.min.js"></script>
+    <script src="app/js/swiper-bundle.min.js"></script>
+    <script src="app/js/swiper.js"></script>
+    <script src="app/js/app.js"></script>
+    <script src="app/js/jquery.easing.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</body>
+</html>
