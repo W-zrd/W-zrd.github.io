@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Network Forensic: Analyzing Suspicious Network Traffic">
+    <meta property="og:description" content="Silent scanning DDoSed network traffic - Gemastik Quals 2023">
+    <meta property="og:image" content="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/582b7519-2ab2-4e3d-b281-4cb2a59b36d8/dg4blgz-8ce48233-9f5d-4402-b827-7d44cb2373fa.jpg/v1/fill/w_1118,h_715,q_70,strp/demonzz_by_ourmine77_dg4blgz-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9ODE4IiwicGF0aCI6IlwvZlwvNTgyYjc1MTktMmFiMi00ZTNkLWIyODEtNGNiMmE1OWIzNmQ4XC9kZzRibGd6LThjZTQ4MjMzLTlmNWQtNDQwMi1iODI3LTdkNDRjYjIzNzNmYS5qcGciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.Gg7IQQ72dETHVAR3_637RND_Db_D8eRO_9PIZES1dqY">
+    <meta property="og:url" content="https://flxnzz.my.id">
+    
+    <title>Network Forensic: Analyzing Suspicious Network Traffic</title>
+    <link rel="stylesheet" href="app/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="app/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="app/dist/app.css">
+    <link rel="stylesheet" href="assets/font/font-awesome.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Favicon and Touch Icons  -->
+    <link rel="shortcut icon" href="assets/images/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/images/favicon.png">
+</head>
+<body class="header-fixed details inner-page">
+        <!-- preloade -->
+        <div class="preload preload-container">
+            <div class="preload-logo"></div>
+        </div>
+        <!-- /preload -->
+    <div id="wrapper">
+        <!-- Header -->
+        <header id="header_main" class="header">
+            <div class="container">
+                <div id="site-header-inner">
+                    <div class="header__logo">
+                        <a href="#"><img src="assets/images/logo/preload.png" alt=""></a>
+                    </div>
+                    <nav id="main-nav" class="main-nav">
+                        <ul id="menu-primary-menu" class="menu">
+                            <li class="menu-item"><a href="index.html">Home</a></li>
+                            <li class="menu-item"><a href="index.html">About</a></li>
+                            <li class="menu-item"><a href="index.html">Achievements</a></li>
+                            <li class="menu-item"><a href="index.html">Skills</a></li>
+                            <li class="menu-item"><a href="index.html">Projects</a></li>
+                            <li class="menu-item"><a href="index.html">Blogs</a></li>
+                            <!-- Create sub menu for Portfolio: Achievements, Skills, Projects-->
+                        </ul>
+                    </nav><!-- /#main-nav -->
+                    <div class="mobile-button"><span></span></div><!-- /.mobile-button -->
+                </div>
+            </div>
+        </header>
+    <!-- end Header -->
+    <br><br>
+    
+    <style>
+        .justified-paragraph {
+        text-align: justify;
+      }
+      .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+
+        .image-container img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        }
+
+    </style>      
+    <section class="tf-section detail">
+        <div class="container">
+            <div class="row">
+                <article class="article" data-aos="fade-in" data-aos-duration="800">
+                    <div class="post p-b23">
+                        <div class="image">
+                            <div class="tag st2">Network Security</div>
+                        </div>
+                        <h4 class="title"><a href="#">Network Forensic: Analyzing Suspicious Network Traffic</a></h4>
+                        <ul class="meta-post">
+                            <li><span>by</span><a href="#">Flxnzz</a></li>
+                            <li><a href="#"> 31 Jul 2023</a></li>
+                        </ul>                     
+                    </div>
+
+                    <div class="post-details">
+                        <div class="image">
+                            <img src="assets/images/post/gemastikweb.png" alt="">
+                        </div> <br>
+                        <p class="justified-paragraph">Artikel ini mulai ditulis 24 jam setelah babak penyisihan Gemastik selesai. Dari 254 tim, Tim kami nyaris mendapatkan 4 flag untuk menuju final karena sebagian besar part dari flagnya sudah ditemukan :( . Namun sepertinya tahun ini belum diberi kesempatan untuk maju ke final karena kurang teliti dan saya sendiri tidak dalam mode try hard, hehe. <br> <br>
+                        Walaupun hasil akhir tim kami tidak lolos, tetapi banyak yang saya pelajari dalam Gemastik tahun ini. 
+                        Salah satu soal yang menarik bagi saya adalah tentang Network Forensic, Menganalisis paket traffic pada Wireshark. Hanya ada 1 tim yang menyelesaikan tantangan ini sehingga bobotnya tinggi (500 pts). <code>"Solved gak bang? "</code> yoo solved mazz, tapi pas time's up..
+                        <br><br> </p>
+
+                        <h5>Deskripsi Soal</h5>
+                        <p class="justified-paragraph"> Our network was repeatedly bombarded by a port scanner targeting a specific ports. Interestingly, our server seems to provide different responses depending on its current state and the specific request it receives. Although nothing major happened, we believe there was a hidden intention behind the attacks.
+                        
+                        <br><br> <strong>Hint:</strong>  We discovered that the actor was attempting to determine whether our service was open, closed, or blocked by the firewall.</p><br>
+
+                        <h5>Konsep Protokol TCP pada model TCP/IP</h5>
+                        <p class="justified-paragraph">TCP adalah protokol yang <i>connection oriented</i> dan menjadi salah satu protokol inti dari Internet Protocol Suite (TCP/IP). Anggap saja TCP sebagai cara komputer untuk berbicara satu sama lain melalui internet. Protokol ini memulai koneksi dengan cara <strong>3 Way Handshake</strong>. Berikut adalah cara kerjanya</p>
+                        <div class="image">
+                            <img src="assets/images/post/3wayhs.jpg" alt="">
+                        </div> <br>
+                        <ul class="list">
+                            <li class="justified-paragraph"><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.76 5.108V2.292L2.652 0.4H5.864L7.712 2.336V5.064L5.864 7H2.652L0.76 5.108Z" fill="white"></path>
+                                </svg>
+                                <span>Klien Mengatakan "Halo" (SYN): Komputer mu mengatakan "Halo" ke situs web (server) dengan mengirim paket SYN.</b></span>
+                            </li>
+                        </ul>
+                        <br>
+                        <ul class="list">
+                            <li class="justified-paragraph"><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.76 5.108V2.292L2.652 0.4H5.864L7.712 2.336V5.064L5.864 7H2.652L0.76 5.108Z" fill="white"></path>
+                                </svg>
+                                <span>Server Menjawab "Halo Kembali" (SYN-ACK): Situs web (server) menjawab "Halo" kembali dengan paket SYN-ACK.</b></span>
+                            </li>
+                        </ul>
+                        <br>
+                        <ul class="list">
+                            <li class="justified-paragraph"><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.76 5.108V2.292L2.652 0.4H5.864L7.712 2.336V5.064L5.864 7H2.652L0.76 5.108Z" fill="white"></path>
+                                </svg>
+                                <span>Klien Menjawab "Siap Berbicara" (ACK) dengan mengirim paket ACK.</b></span>
+                            </li>
+                        </ul>
+                        <br>
+
+                        <p class="justified-paragraph">Setelah itu, koneksi akan terbuka, dan kamu bisa mulai berbicara dengan situs web/server. Untuk menutup koneksi, protokol ini juga melakukan 3 way handshake, bedanya kita menggunakan paket FIN-ACK, dan bukan SYN-ACK</p><br>
+
+                        <h5>Port Scanning</h5>
+                        <p class="justified-paragraph">Port Scanning adalah teknik yang digunakan untuk menemukan port terbuka pada server, Bisa digunakan untuk menemukan potensi titik masuk yang rentan pada jaringan. Ada banyak cara untuk melakukan port scanning dan menemukan port terbuka. Beberapa teknik lebih cepat, beberapa lebih sulit terdeteksi, dan ada juga yang lebih akurat. <br><br>
+                            
+                        Pilihan teknik tergantung pada apa yang kita perlukan. Namun pada kasus ini, kita akan menggunakan SYN Scan.</p><br>
+                        <h6>SYN Scan</h6>
+                        <p class="justified-paragraph">SYN-scan adalah teknik pemindaian port yang sering disebut pemindaian setengah terbuka. Dalam teknik ini, paket SYN akan dikirim, lalu klien menunggu respons tanpa membuka koneksi TCP penuh. Ada 3 kemungkinan hasil: </p>
+                        <ul class="list">
+                            <li class="justified-paragraph"><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.76 5.108V2.292L2.652 0.4H5.864L7.712 2.336V5.064L5.864 7H2.652L0.76 5.108Z" fill="white"></path>
+                                </svg>
+                                <span><b>Port Terbuka (Open):</b> Jika server merespons dengan SYN-ACK, port dianggap terbuka.</span>
+                            </li>
+                        </ul>
+                        <ul class="list">
+                            <li class="justified-paragraph"><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.76 5.108V2.292L2.652 0.4H5.864L7.712 2.336V5.064L5.864 7H2.652L0.76 5.108Z" fill="white"></path>
+                                </svg>
+                                <span><b>Port Tertutup (Closed):</b> Jika server merespons dengan RST, port dianggap tertutup.</span>
+                            </li>
+                        </ul>
+                        <ul class="list">
+                            <li class="justified-paragraph"><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.76 5.108V2.292L2.652 0.4H5.864L7.712 2.336V5.064L5.864 7H2.652L0.76 5.108Z" fill="white"></path>
+                                </svg>
+                                <span><b>Port Difilter (Filtered):</b> Jika tidak ada respons, port dianggap difilter, biasanya oleh firewall.</span>
+                            </li>
+                        </ul>
+                        <br>
+
+                        <h5>Identifikasi Network Traffic</h5>
+                        <div class="image">
+                            <img src="assets/images/post/ws1.png" alt="">
+                        </div> <br>
+                        <p class="justified-paragraph">Sekarang saatnya terjun ke real problem pada soal. Buka wireshark dan akan muncul sebanyak 3.256 paket yang tampil pada layar. Kebanyakan dari protokol yang tampil merupakan Bad TCP sehingga oleh wireshark dihighlight dengan warna hitam. Hal ini menandakan beberapa kemungkinan, seperti malformed packet, Checksum error, ataupun Suspicious Traffic.</p>
+                        <div class="image">
+                            <img src="assets/images/post/ts.png" alt="">
+                        </div> <br>
+
+                        <p class="justified-paragraph">Karena saya cukup familiar dengan soal network forensics yang melibatkan wireshark, jadi ide awal yang muncul saat penyisihan adalah:</p>
+                        <ul class="list">
+                            <li class="justified-paragraph"><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.76 5.108V2.292L2.652 0.4H5.864L7.712 2.336V5.064L5.864 7H2.652L0.76 5.108Z" fill="white"></path>
+                                </svg>
+                                <span>Mungkin flagnya di encode sebagai hex dan disisipkan diantara beberapa paket. Oleh karena itu saya mendecode string "gemastik" sebagai hex dan melakukan pencarian dari hex tersebut. Tapi ternyata tidak semudah itu :)</span>
+                            </li>
+                        </ul>
+                        <br>
+                        <ul class="list">
+                            <li class="justified-paragraph"><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.76 5.108V2.292L2.652 0.4H5.864L7.712 2.336V5.064L5.864 7H2.652L0.76 5.108Z" fill="white"></path>
+                                </svg>
+                                <span>Saya juga mencoba melakukan pencarian dengan regex untuk string yang memuat karakter base64, dan tetap tidak ketemu</span>
+                            </li>
+                        </ul>
+                        <br>
+                        <ul class="list">
+                            <li class="justified-paragraph"><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.76 5.108V2.292L2.652 0.4H5.864L7.712 2.336V5.064L5.864 7H2.652L0.76 5.108Z" fill="white"></path>
+                                </svg>
+                                <span>Ide terakhir yang muncul di benak saya adalah karakter ASCII. Karena ini kategori hard level, tidak mungkin flagnya disimpan sebagai plaintext dan tidak mungkin juga disimpan pada 1 paket tertentu. Jadi mungkin setiap karakter pada flagnya dibentuk dalam nomor ASCII.</span>
+                            </li>
+                        </ul>
+                        <br>
+                        
+                        <p class="justified-paragraph">Tapi, gimana ASCII nya ditemukan? karena bisa saja muncul pada tab hex wireshark, atau apapun yang berhubungan dengan 3 digit angka (mengingat ASCII table ada 127). Salah satu yang mungkin adalah portnya. Kenapa port? karena setelah dianalisis terdapat banyak port yang mungkin merupakan flagnya. Selain itu, deskripsi soal sudah cukup jelas, dan pada saat itu hint problem sudah turun. <br><br>
+
+                        <h5>Win-Win Solusyen</h5>
+                        <p class="justified-paragraph">Berdasarkan penjelasan, konsep awal, dan ide sebelumnya, kita bisa tau cara server menanggapi paket SYN, kita bisa menilai apakah port terbuka, tertutup, atau terfilter. Kami membuat script python untuk menyelesaikan problem ini. Special thanks & credits to <strong>PwnEater</strong> & <strong>rin4th</strong> yang sudah berkontribusi pada script ini.</p>
+                        <div class="image">
+                            <img src="assets/images/post/forenscript.png" alt="">
+                        </div> <br>
+                        <p class="justified-paragraph">Logika dibalik script ini adalah melihat bagaimana server merespons permintaan ke port yang berbeda. Port ditandai sebagai "OPEN", "CLOSED", atau "FILTERED" berdasarkan flags TCP dalam paket respons. Setelah menemukan portnya, kita perlu mengubah nomor port menjadi karakter ASCII. Jika di run, maka akan mengeluarkan output yang terdiri atas 3 string base 64 (output keluar berdasarkan open, closed, atau filtered).</p>
+
+                        <div class="image">
+                            <img src="assets/images/post/scripting.png" alt="">
+                        </div> <br>
+
+                        <p class="justified-paragraph">Jika string base 64 tersebut didecode maka akan menampilkan magic bytes dari signature file PNG. Lakukan decode untuk tiap base 64 dan simpan sebagai PNG. Hasilnya akan didapatkan 3 QR Code yang merupakan bagian dari flagnya.</p>
+
+                        <div class="image">
+                            <img src="assets/images/post/qrs.png" alt="">
+                        </div> <br>
+
+                        <p class="justified-paragraph">Dari pengalamanku, Gemastik tahun ini merupakan CTF lokal tersulit setelah Cyber Jawara. Probset yang terpilih memang benar-benar berkualitas karena pernah menang event nasional maupun internasional. Terima kasih tim karena telah berusaha yang terbaik.</p>
+                    </div>
+
+                    <div class="wrap-widget">
+                        <div class="widget widget-tag style-2">
+                            <h6 class="title-widget">Tags:</h6>
+                            <ul>
+                                <li><a href="#">Reverse Engineering</a>, </li>
+                                <li><a href="#">Security Awareness</a></li>
+                            </ul>
+                        </div>
+                        <div class="widget widget-social style-2">
+                            <h6 class="title-widget">Share:</h6>
+                            <ul>
+                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrap-box-details">
+                        <div class="previous">
+                            <a class="st" href="crying-ransomware.html">Previous</a>
+                            <h6><a href="crying-ransomware.html">Defeating the “Crying” Ransomware : Misc & Reversing CTF Writeup</a></h6>
+                        </div>
+                        <div class="next">
+                            <a class="st" href="coming-soon.html">Next</a>
+                            <h6><a href="coming-soon.html">Analyzing Suspicious Activity on Home Network Traffic</a></h6>
+                        </div>
+                    </div>
+                </article>         
+            </div>
+        </div>
+    </section>
+
+    </div>
+    <a id="scroll-top"></a>
+    <script src="app/js/jquery.min.js"></script>
+    <script src="app/js/swiper-bundle.min.js"></script>
+    <script src="app/js/swiper.js"></script>
+    <script src="app/js/app.js"></script>
+    <script src="app/js/jquery.easing.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</body>
+</html>
